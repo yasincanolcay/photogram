@@ -20,6 +20,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String coverPhoto = "https://cdn.dribbble.com/users/1186261/screenshots/3718681/_______.gif";
   String profilePhoto = "https://icons8.com/preloaders/preloaders/1494/Spinner-2.gif";
   String username = "";
+  String bio = "";
   bool verify = false;
   bool isLoading = false;
   List<String> followingList = [];
@@ -44,6 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     coverPhoto = snap.data()!["coverPhoto"];
     profilePhoto = snap.data()!["photoUrl"];
     verify = snap.data()!["verify"];
+    bio = snap.data()!["bio"];
     setState(() {
       isLoading = false;
     });
@@ -115,6 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   uid: widget.uid,
                                   username: username,
                                   verify: verify,
+                                  bio: bio,
                                 )
                               : SizedBox(),
                           PostWidget(

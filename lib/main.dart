@@ -14,14 +14,15 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+//login firebase and get options
   if (kIsWeb) {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
         apiKey: "your api",
-        appId: "your app Id",
-        messagingSenderId: "your sender Id",
-        projectId: "your project Id",
-        storageBucket: "your bucket",
+        appId: "your Id",
+        messagingSenderId: "your message sender Id",
+        projectId: "your projectId",
+        storageBucket: "your bucked",
       ),
     );
   } else {

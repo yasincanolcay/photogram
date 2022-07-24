@@ -171,4 +171,57 @@ class FireStoreMethods {
     }
     return res;
   }
+
+  Future<String> editProfileUrl(
+    String username,
+    String bio,
+    String url,
+    String uid,
+  ) async {
+    String res = "";
+    try {
+      if (username.isNotEmpty && url.isNotEmpty) {
+        await FirebaseFirestore.instance.collection("users").doc(uid).update({
+          "photoUrl": url,
+          "username": username,
+          "bio": bio,
+        });
+
+        res = "Succesfuly";
+      }else{
+        res = "There are empty fields";
+      }
+    } catch (e) {
+      res = "error!";
+    }
+    return res;
+  }
+
+  Future<String> editProfileFile(
+    String username,
+    String bio,
+    Uint8List file,
+    String uid,
+  ) async {
+    String res = "";
+    try {
+      if (username.isNotEmpty && file.isNotEmpty) {
+        String photoUrl = await StorageMethods()
+            .uploadImageToStorage('profilePic', file, true);
+        await FirebaseFirestore.instance.collection("users").doc(uid).update({
+          "photoUrl": photoUrl,
+          "username": username,
+          "bio": bio,
+        });
+
+        res = "Succesfuly";
+      }
+      else{
+        res = "There are empty fields";
+      }
+    } catch (e) {
+      res = "error!";
+    }
+    return res;
+  }
 }

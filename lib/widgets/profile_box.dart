@@ -5,6 +5,7 @@ import 'package:photogram/main.dart';
 import 'package:photogram/resources/auth_methods.dart';
 import 'package:photogram/resources/firestore_methods.dart';
 import 'package:photogram/responsive/const.dart';
+import 'package:photogram/screens/edit_profile_screen.dart';
 import 'package:photogram/screens/login_screen.dart';
 import 'package:photogram/utils/utils.dart';
 import 'package:photogram/widgets/buildColumn.dart';
@@ -19,6 +20,7 @@ class ProfileBox extends StatefulWidget {
   final uid;
   final username;
   final verify;
+  final bio;
   const ProfileBox({
     Key? key,
     required this.screenWidth,
@@ -30,6 +32,7 @@ class ProfileBox extends StatefulWidget {
     required this.uid,
     required this.username,
     required this.verify,
+    required this.bio,
   }) : super(key: key);
 
   @override
@@ -76,11 +79,12 @@ class _ProfileBoxState extends State<ProfileBox> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        color: mobileBackgroundColor,
         image: DecorationImage(
           image: NetworkImage(widget.coverPhoto),
           filterQuality: FilterQuality.medium,
           fit: BoxFit.cover,
-          opacity: 0.8,
+          opacity: 0.6,
         ),
       ),
       width: widget.screenWidth,
@@ -216,6 +220,8 @@ class _ProfileBoxState extends State<ProfileBox> {
                     ),
             ],
           ),
+          Text(widget.bio,style: TextStyle(color: primaryColor,fontSize: 17),),
+          SizedBox(height: 10,),
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
@@ -227,7 +233,7 @@ class _ProfileBoxState extends State<ProfileBox> {
               borderRadius: BorderRadius.circular(15),
               child: myUid == widget.uid
                   ? FlatButton(
-                      onPressed: () {},
+                      onPressed: ()=>Navigator.of(context).push(MaterialPageRoute(builder: (context)=>EditProfileScreen(username: widget.username, bio: widget.bio, photoUrl: widget.profilePhoto, uid: myUid))),
                       child: Text(
                         "Edit Profile",
                         style: style,
